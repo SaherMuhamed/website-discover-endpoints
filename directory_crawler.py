@@ -4,6 +4,12 @@ import requests
 from art import directory_art
 from argparse import ArgumentParser
 
+if sys.version_info < (3, 0):
+    sys.stderr.write("\nYou need python 3.0 or later to run this script\n")
+    sys.stderr.write("Please update and make sure you use the command python3 directory_crawler.py -u <url> -w "
+                     "<wordlist>\n\n")
+    sys.exit(0)
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                          'Chrome/102.0.0.0 Safari/537.36'}  # It will send the request like browser
