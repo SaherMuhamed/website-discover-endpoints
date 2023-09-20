@@ -14,7 +14,7 @@ This project can be particularly useful for security testing, bug bounty hunting
     ```
 2. Running the script:
 
-    Use the following command to run the "endpoint discover" script:
+    Use the following command to run the script:
     ```commandline
     python directory_crawler.py -u <target_url> -w <wordlist>
     ```
@@ -29,7 +29,7 @@ This project can be particularly useful for security testing, bug bounty hunting
     **Note:** The script can be terminated at any time by pressing `Ctrl + C` in the keyboard.
 
 ## Screenshot
-![](screenshots/Screenshot_2023-07-23_17-40-43.png)
+![](https://github.com/SaherMuhamed/website-discover-endpoints/blob/master/screenshots/Screenshot%20from%202023-09-20%2014-11-55.png)
 
 ## Important Note:
 
