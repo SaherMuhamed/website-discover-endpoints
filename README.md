@@ -1,7 +1,7 @@
-# Endpoint Discover
+# Website Endpoint Discover
 The "Endpoint Discover" project is a Python script designed to help security researchers and penetration testers discover and identify endpoints of a target website. By utilizing a wordlist of potential endpoint names, the script systematically sends HTTP requests to the target website, attempting to access each endpoint. If a response is received from the target server, the script identifies the discovered endpoint and provides relevant information, such as the HTTP status code and response time.
 <br><br>
-The script takes advantage of the "requests" library to make HTTP requests and the "colorama" library to enhance the output with colored messages. It provides a straightforward command-line interface to specify the target website URL and the wordlist containing potential endpoint names. Additionally, users can choose to save the discovered subdomains/endpoints to an output file.
+The script takes advantage of the "requests" library to make HTTP requests and the "colorama" library to enhance the output with colored messages. It provides a straightforward command-line interface to specify the target website URL and the wordlist containing potential endpoint names.
 <br><br>
 This project can be particularly useful for security testing, bug bounty hunting, or any scenario where identifying hidden or undocumented endpoints is critical to assessing a web application's security posture.
 
@@ -10,23 +10,21 @@ This project can be particularly useful for security testing, bug bounty hunting
 
     Before using the script, ensure that you have the required dependencies installed by running the following command:
     ```commandline
-    pip install requests colorama
+    pip install requests
     ```
 2. Running the script:
 
     Use the following command to run the "endpoint discover" script:
     ```commandline
-    python endpoint_discovery.py -u <target_url> -w <wordlist> [-s <output_file>]
+    python directory_crawler.py -u <target_url> -w <wordlist>
     ```
     - Replace `<target_url>` with the URL of the target website you want to scan for endpoints `(e.g., example.com)`.
 
     - Replace `<wordlist>` with the path to a valid wordlist file `(e.g., wordlist.txt)` containing potential endpoint names. Each line in the wordlist file should contain a single endpoint name.
 
-    - The optional `-s` flag allows you to specify an output file to save the discovered endpoints.
-
 3. Output:
 
-    The script will display the discovered endpoints and their corresponding status codes and response times in milliseconds. If the -s flag is used, the discovered endpoints will be saved to the specified output file.
+    The script will display the discovered endpoints and their corresponding status codes and response times in milliseconds.
     
     **Note:** The script can be terminated at any time by pressing `Ctrl + C` in the keyboard.
 
