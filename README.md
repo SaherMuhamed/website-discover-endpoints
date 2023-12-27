@@ -18,7 +18,7 @@ This project can be particularly useful for security testing, bug bounty hunting
     ```commandline
     python directory_crawler.py -u <target_url> -w <wordlist>
     ```
-    - Replace `<target_url>` with the URL of the target website you want to scan for endpoints `(e.g., example.com)`.
+    - Replace `<target_url>` with the URL of the target website you want to scan for endpoints `(e.g., http://example.com/)`.
 
     - Replace `<wordlist>` with the path to a valid wordlist file `(e.g., wordlist.txt)` containing potential endpoint names. Each line in the wordlist file should contain a single endpoint name.
 
@@ -29,7 +29,7 @@ This project can be particularly useful for security testing, bug bounty hunting
     **Note:** The script can be terminated at any time by pressing `Ctrl + C` in the keyboard.
 
 ## Screenshot
-![](https://github.com/SaherMuhamed/website-discover-endpoints/blob/master/screenshots/Screenshot%20from%202023-09-20%2014-11-55.png)
+![](https://github.com/SaherMuhamed/website-discover-endpoints/blob/master/screenshots/Screenshot-from-2023-12-27.png)
 
 ## Important Note:
 
