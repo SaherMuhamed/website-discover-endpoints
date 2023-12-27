@@ -1,6 +1,7 @@
 import sys
 import urllib3
 import requests
+import datetime as dt
 from art import directory_art
 from argparse import ArgumentParser
 
@@ -17,7 +18,8 @@ HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 
 def args():
     parser = ArgumentParser()
-    parser.add_argument("-u", "--url", dest="target_url", help="Enter URL you want to test. Example: -u example.com")
+    parser.add_argument("-u", "--url", dest="target_url", help="Enter URL you want to test. Example: -u "
+                                                               "http://example.com/")
     parser.add_argument("-w", "--wordlist", dest="wordlist", help="Choose the wordlist file. Example: -w common.txt")
     options = parser.parse_args()
     if not options.target_url:
@@ -27,22 +29,37 @@ def args():
     return options
 
 
+def get_details():
+    with open(file=args().wordlist, mode='r') as file:
+        lines = file.readlines()
+    total_line = len(lines)
+    print("---------------------")
+    print("Start time      : " + str(dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S %p")))
+    print("Base URL        : " + args().target_url)
+    print("Wordlist file   : " + args().wordlist)
+    print("Wordlist counts : " + str(total_line))
+    print("---------------------\n")
+
+
 def request(website_url):
     try:
-        return requests.get(url="http://" + website_url, headers=HEADERS)
+        return requests.get(url=website_url, headers=HEADERS)
     except requests.exceptions.ConnectionError:
         pass
 
 
 def main():
     print(directory_art)
+    get_details()
     try:
         with open(file=args().wordlist, mode="r") as file:
             for line in file:
-                test_url = args().target_url + "/" + line.strip()
+                test_url = args().target_url + line.strip()
+                # print(test_url)
                 response = request(website_url=test_url)
                 if response:
-                    print("[+] Endpoint Discovered ==> http://" + test_url + " | Status Code " + str(response.status_code) + " | TTL " + str(round(response.elapsed.microseconds * 0.001, 2)) + " ms")
+                    print(test_url + " | Status Code " + str(response.status_code) + " | TTL " + str(
+                        round(response.elapsed.microseconds * 0.001, 2)) + " ms")
                 sys.stdout.flush()
     except KeyboardInterrupt:
         print("\n[*] Detected 'ctrl + c' pressed, program terminated.")
