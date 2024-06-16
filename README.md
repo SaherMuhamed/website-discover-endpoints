@@ -24,15 +24,18 @@ This project can be particularly useful for security testing, bug bounty hunting
 
 3. Output:
 
-    The script will display the discovered endpoints and their corresponding status codes and response times in milliseconds.
+    The script will display the discovered endpoints and their corresponding status codes
     
     **Note:** The script can be terminated at any time by pressing `Ctrl + C` in the keyboard.
 
 ## Screenshot
-![](https://github.com/SaherMuhamed/website-discover-endpoints/blob/master/screenshots/Screenshot-from-2023-12-27.png)
+![](https://github.com/SaherMuhamed/website-discover-endpoints/blob/master/screenshots/Screenshot_2024-06-16.png)
 
 ## Important Note:
 
 Please ensure that you have proper authorization to scan and test the target website. Unauthorized scanning of websites or systems is illegal and unethical. Always obtain explicit permission from the website owner before performing any security assessments.
 <br><br>
 For legal and responsible use of this script, it is recommended to target websites you own or have explicit permission to test for security vulnerabilities
+
+### Updates
+- `v1.1.0 - 16/6/2024` adding threads functionality so the script can run much more faster and efficiency
