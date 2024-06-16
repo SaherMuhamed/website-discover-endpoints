@@ -16,19 +16,20 @@ if sys.version_info < (3, 0):
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                          'Chrome/102.0.0.0 Safari/537.36'}  # It will send the request like browser
-THREADS = 50
 
 
 def args():
     parser = ArgumentParser()
     parser.add_argument("-u", "--url", dest="target_url", help="Enter URL you want to test. Example: -u "
                                                                "http://example.com/")
-    parser.add_argument("-w", "--wordlist", dest="wordlist", help="Choose the wordlist file. Example: -w common.txt")
+    parser.add_argument("-w", "--wordlist", dest="wordlist", help="Choose the wordlist file. Example: -w all.txt")
+    parser.add_argument("-t", "--thread", dest="thread_num", help="specify thread number to work with (default=7)",
+                        default=7, type=int)
     options = parser.parse_args()
     if not options.target_url:
-        parser.error("[-] Please specify website url, or type it correctly, ex: -u example.com")
+        parser.error("[-] Please specify website url, or type it correctly, ex: -u http://example.com/")
     elif not options.wordlist:
-        parser.error("[-] Please specify a wordlist file, or type it correctly, ex: -w common.txt")
+        parser.error("[-] Please specify a wordlist file, or type it correctly, ex: -w all.txt")
     return options
 
 
@@ -39,13 +40,14 @@ def print_details():
     print("---------------------")
     print("🕰️  Start Time  : " + str(dt.datetime.now().strftime("%d/%m/%Y %I:%M %p")))
     print("🎯 Target URL  : " + args().target_url)
-    print("🚀 Threads     : " + str(THREADS))
+    print("🚀 Threads     : " + str(args().thread_num))
     print("📖 Wordlist    : " + args().wordlist)
     print("🔢 No. Words   : " + str(total_line))
     print("---------------------")
 
 
 def fetch_wordlist_file():
+    """read a file containing a list of words, store them in a queue, and then return this queue object"""
     with open(file=args().wordlist, mode="r") as f:
         raw_words = f.read()
     queued_words = queue.Queue()
@@ -83,6 +85,6 @@ if __name__ == "__main__":
     print(directory_art)
     print_details()
     words = fetch_wordlist_file()
-    for _ in range(THREADS):
+    for _ in range(args().thread_num):
         t = threading.Thread(target=main, args=(words,))
         t.start()
