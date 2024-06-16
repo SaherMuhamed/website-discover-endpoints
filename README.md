@@ -42,4 +42,6 @@ Please ensure that you have proper authorization to scan and test the target web
 For legal and responsible use of this script, it is recommended to target websites you own or have explicit permission to test for security vulnerabilities
 
 ### Updates
-- `v1.1.0 - 16/6/2024` adding threads functionality so the script can run much more faster and efficiency
+- `v1.1.0 - 16/6/2024`:
+  1. adding threads functionality so the script can run much more faster and efficiency
+  2. control the number of thread using `-t` or `--thread` option `(default=7)`
