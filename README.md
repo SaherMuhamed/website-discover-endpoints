@@ -1,4 +1,9 @@
 # Website Endpoint Discover
+
+<p align="center">
+  <img src="assets/folder.ico" />
+</p>
+
 The "Endpoint Discover" project is a Python script designed to help security researchers and penetration testers discover and identify endpoints of a target website. By utilizing a wordlist of potential endpoint names, the script systematically sends HTTP requests to the target website, attempting to access each endpoint. If a response is received from the target server, the script identifies the discovered endpoint and provides relevant information, such as the HTTP status code and response time.
 <br><br>
 The script takes advantage of the "requests" library to make HTTP requests and the "colorama" library to enhance the output with colored messages. It provides a straightforward command-line interface to specify the target website URL and the wordlist containing potential endpoint names.
@@ -16,17 +21,16 @@ This project can be particularly useful for security testing, bug bounty hunting
 
     Use the following command to run the script:
     ```commandline
-    python directory_crawler.py -u <target_url> -w <wordlist>
+    python3 directory_crawler.py -u <target_url> -w <wordlist>
     ```
     - Replace `<target_url>` with the URL of the target website you want to scan for endpoints `(e.g., http://example.com/)`.
 
     - Replace `<wordlist>` with the path to a valid wordlist file `(e.g., wordlist.txt)` containing potential endpoint names. Each line in the wordlist file should contain a single endpoint name.
-
-3. Output:
-
-    The script will display the discovered endpoints and their corresponding status codes
-    
-    **Note:** The script can be terminated at any time by pressing `Ctrl + C` in the keyboard.
+  
+**Note:** If you want to see only the successes, since you used `sys.stderr` to write the `x` and `.` characters, invoke the script and redirect `stderr` to `/dev/null` so that only files you found are displayed on the console
+```commandline
+    python3 directory_crawler.py -u <target_url> -w <wordlist> 2> /dev/null
+    ```
 
 ## Screenshot
 ![](https://github.com/SaherMuhamed/website-discover-endpoints/blob/master/screenshots/Screenshot_2024-06-16.png)
