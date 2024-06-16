@@ -1,6 +1,8 @@
 import sys
+import queue
 import urllib3
 import requests
+import threading
 import datetime as dt
 from art import directory_art
 from argparse import ArgumentParser
@@ -14,6 +16,7 @@ if sys.version_info < (3, 0):
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                          'Chrome/102.0.0.0 Safari/537.36'}  # It will send the request like browser
+THREADS = 50
 
 
 def args():
@@ -29,42 +32,55 @@ def args():
     return options
 
 
-def get_details():
+def print_details():
     with open(file=args().wordlist, mode='r') as file:
         lines = file.readlines()
     total_line = len(lines)
     print("---------------------")
-    print("Start time      : " + str(dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S %p")))
-    print("Base URL        : " + args().target_url)
-    print("Wordlist file   : " + args().wordlist)
-    print("Wordlist counts : " + str(total_line))
-    print("---------------------\n")
+    print("🕰️  Start Time  : " + str(dt.datetime.now().strftime("%d/%m/%Y %I:%M %p")))
+    print("🎯 Target URL  : " + args().target_url)
+    print("🚀 Threads     : " + str(THREADS))
+    print("📖 Wordlist    : " + args().wordlist)
+    print("🔢 No. Words   : " + str(total_line))
+    print("---------------------")
 
 
-def request(website_url):
+def fetch_wordlist_file():
+    with open(file=args().wordlist, mode="r") as f:
+        raw_words = f.read()
+    queued_words = queue.Queue()
+    for word in raw_words.split():
+        queued_words.put(item=word)
+    return queued_words
+
+
+def make_request(website_url):
     try:
         return requests.get(url=website_url, headers=HEADERS)
     except requests.exceptions.ConnectionError:
         pass
 
 
-def main():
-    print(directory_art)
-    get_details()
-    try:
-        with open(file=args().wordlist, mode="r") as file:
-            for line in file:
-                test_url = args().target_url + line.strip()
-                # print(test_url)
-                response = request(website_url=test_url)
-                if response:
-                    print(test_url + " | Status Code " + str(response.status_code) + " | TTL " + str(
-                        round(response.elapsed.microseconds * 0.001, 2)) + " ms")
+def main(word):
+    while not word.empty():
+        url = f"{args().target_url}{word.get()}"
+        r = make_request(website_url=url)
+        try:
+            if r.status_code == 200:
+                print(f"\nSuccess ({r.status_code}: {url})")
+            elif r.status_code == 404:
+                pass
+            else:
+                print(f"\n{r.status_code} => {url}")
                 sys.stdout.flush()
-    except KeyboardInterrupt:
-        print("\n[*] Detected 'ctrl + c' pressed, program terminated.")
-        sys.exit(0)
+        except AttributeError:
+            pass
 
 
 if __name__ == "__main__":
-    main()
+    print(directory_art)
+    print_details()
+    words = fetch_wordlist_file()
+    for _ in range(THREADS):
+        t = threading.Thread(target=main, args=(words,))
+        t.start()
