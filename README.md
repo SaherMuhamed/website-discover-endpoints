@@ -33,7 +33,7 @@ python3 directory_crawler.py -u <target_url> -w <wordlist> 2> /dev/null
 ```
 
 ## Screenshot
-![](https://github.com/SaherMuhamed/website-discover-endpoints/blob/master/screenshots/Screenshot_2024-06-16.png)
+![](https://github.com/SaherMuhamed/website-discover-endpoints/blob/master/screenshots/Screenshot_2024-06-16_2.png)
 
 ## Important Note:
 
