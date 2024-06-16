@@ -70,12 +70,12 @@ def main(word):
         r = make_request(website_url=url)
         try:
             if r.status_code == 200:
-                print(f"\nSuccess ({r.status_code}: {url})")
+                print(f"\n[{str(dt.datetime.now().strftime('%I:%M:%S'))}] - Success ({r.status_code}: {url})")
             elif r.status_code == 404:
                 sys.stderr.write(".")
                 sys.stderr.flush()
             else:
-                print(f"\n{r.status_code} => {url}")
+                print(f"\n[{str(dt.datetime.now().strftime('%I:%M:%S'))}] - {r.status_code} => {url}")
         except AttributeError:
             pass
             continue
