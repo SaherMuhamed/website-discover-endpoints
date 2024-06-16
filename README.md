@@ -30,7 +30,7 @@ This project can be particularly useful for security testing, bug bounty hunting
 **Note:** If you want to see only the successes, since you used `sys.stderr` to write the `x` and `.` characters, invoke the script and redirect `stderr` to `/dev/null` so that only files you found are displayed on the console
 ```commandline
     python3 directory_crawler.py -u <target_url> -w <wordlist> 2> /dev/null
-    ```
+```
 
 ## Screenshot
 ![](https://github.com/SaherMuhamed/website-discover-endpoints/blob/master/screenshots/Screenshot_2024-06-16.png)
