@@ -58,7 +58,8 @@ def make_request(website_url):
     try:
         return requests.get(url=website_url, headers=HEADERS)
     except requests.exceptions.ConnectionError:
-        pass
+        sys.stderr.write("x")
+        sys.stderr.flush()
 
 
 def main(word):
@@ -69,12 +70,13 @@ def main(word):
             if r.status_code == 200:
                 print(f"\nSuccess ({r.status_code}: {url})")
             elif r.status_code == 404:
-                pass
+                sys.stderr.write(".")
+                sys.stderr.flush()
             else:
                 print(f"\n{r.status_code} => {url}")
-                sys.stdout.flush()
         except AttributeError:
             pass
+            continue
 
 
 if __name__ == "__main__":
